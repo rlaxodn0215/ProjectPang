@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,31 +11,46 @@ namespace ProjectPang
 		A,
 		B,
 		C,
-		Max,
+		Max
 	}
 
-	public struct SymbolData
+	public enum EUI
+	{
+		Title,
+		Gameplay,
+		Max
+	}
+
+	public enum ESound
+	{
+		ButtonClick,
+		GameOver,
+		Max
+	}
+
+	public struct SymbolCustomData
 	{
 		public ESymbol Symbol;
 		public int ChanceWeight;
 		public int Point;
 	}
 
-	public struct PatternData
+	public struct PatternCustomData
 	{
 		public bool IsDefault;
 		public int MinGetPointCount;
-		public List<string> ListPattern;
+		public string CustomPattern;
 	}
 
+	[Serializable]
 	public struct GameData
 	{
 		public string DataName;
 		public string DataPath;
 		public int RowCount;
 		public int ColCount;
-		public List<SymbolData> ListSymbolData;
-		public List<PatternData> ListPatternData;
+		public List<SymbolCustomData> ListSymbolCustomData;
+		public List<PatternCustomData> ListPatternCustomData;
 		public bool IsTimeAttack;
 		public int TimeLimit;
 		public bool IsTargetPoint;

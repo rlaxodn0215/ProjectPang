@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ProjectPang
 {
-	public class SceneManager
+	public class UIGameWindow : UIBase
 	{
 	}
 }

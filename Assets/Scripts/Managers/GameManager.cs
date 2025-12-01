@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace ProjectPang
 {
@@ -31,18 +32,41 @@ namespace ProjectPang
 		public UnityEvent OnGameOver = new UnityEvent();
 
 		// 현재 게임에 적용되는 데이터
-		public List<SymbolData> ListUseSymbol = new List<SymbolData>();
-		public List<PatternData> ListUsePattern = new List<PatternData>();
+		public List<SymbolCustomData> ListUseSymbol = new List<SymbolCustomData>();
+		public List<PatternCustomData> ListUsePattern = new List<PatternCustomData>();
 		public int TimeLimit { get; private set; }
 		public int TargetPoint { get; private set; }
 		public long Point { get; private set; }
 
 		private GameData _gameDataCache;
+		private AsyncOperation _loadOperation;
 
-		public void Initialize(string jsonPath)
+		public void Initailize()
 		{
-			// json파일을 로드해서 초기화 진행 -> _gameDataCache 초기화
+			
+		}
+
+		public void SetupGameData(string jsonPath)
+		{
+			// json파일을 로드해서 초기화 진행
+			
+			// _gameDataCache 초기화
 			Reset();
+			
+			// 씬 미리 로드
+			_loadOperation = SceneManager.LoadSceneAsync("GameScene");
+			if (_loadOperation != null)
+			{
+				_loadOperation.allowSceneActivation = false;
+			}
+		}
+
+		public void StartGame()
+		{
+			if (_loadOperation != null)
+			{
+				_loadOperation.allowSceneActivation = true;
+			}
 		}
 
 		/// <summary>
@@ -53,8 +77,8 @@ namespace ProjectPang
 			Debug.Log("Reset Game");
 
 			// 데이터 리셋
-			ListUseSymbol = _gameDataCache.ListSymbolData;
-			ListUsePattern = _gameDataCache.ListPatternData;
+			ListUseSymbol = _gameDataCache.ListSymbolCustomData;
+			ListUsePattern = _gameDataCache.ListPatternCustomData;
 			TimeLimit = _gameDataCache.TimeLimit;
 			OnUseTimeAttack?.Invoke();
 			TargetPoint = _gameDataCache.TargetPoint;
@@ -120,7 +144,7 @@ namespace ProjectPang
 		private long CalculatePoint(int selectedIndex)
 		{
 			var patternSlots =
-				Utility.CheckPattern(ListBoardSlotInfo, ListUsePattern, selectedIndex);
+				Utility.CheckPattern(ListBoardSlotInfo, _gameDataCache.RowCount, ListUsePattern, selectedIndex);
 			if (patternSlots.Count == 0)
 			{
 				return 0;
