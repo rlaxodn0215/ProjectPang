@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Click
   m_EditorClassIdentifier: Assembly-CSharp::ProjectPang.SoundData
   Key: 1
+  Loop: 0
+  Volume: 1
+  Pitch: 1
   AudioFilePath: test1

@@ -43,7 +43,7 @@ namespace ProjectPang
 	}
 
 	[Serializable]
-	public struct GameData
+	public class GameData
 	{
 		public string DataName;
 		public string DataPath;

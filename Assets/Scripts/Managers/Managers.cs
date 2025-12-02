@@ -34,7 +34,7 @@ namespace ProjectPang
 		private void Start()
 		{
 			Data.Initailize();
-			Sound.Initialize();
+			//Sound.Initialize();
 			Custom.Initialize();
 			UI.Initialize(transform);
 			Game.Initailize();

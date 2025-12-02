@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: GameOver
   m_EditorClassIdentifier: Assembly-CSharp::ProjectPang.SoundData
   Key: 2
+  Loop: 1
+  Volume: 1
+  Pitch: 1
   AudioFilePath: Resources/Prefabs/Sadasdasd
