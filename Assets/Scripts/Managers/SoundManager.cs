@@ -41,7 +41,10 @@ namespace ProjectPang
 		public void PlayBGM(ESound key)
 		{
 			if (!_soundData.TryGetValue(key, out var data))
+			{
+				Debug.LogError($"Sound Not Found: {key}");
 				return;
+			}
 
 			var clip = Resources.Load<AudioClip>(data.AudioFilePath);
 
@@ -52,28 +55,11 @@ namespace ProjectPang
 			_bgmPlayer.Play();
 		}
 
-		// =====================
 		// Volume Controls (Mixer)
-		// =====================
-		public void SetMasterVolume(float volume)
-		{
-			SetVolume("Master_Volume", volume);
-		}
-
-		public void SetBGMVolume(float volume)
-		{
-			SetVolume("BGM_Volume", volume);
-		}
-
-		public void SetSFXVolume(float volume)
-		{
-			SetVolume("SFX_Volume", volume);
-		}
-
-		private void SetVolume(string parameter, float volume)
+		public void SetVolume(EAudioMixerType type, float volume)
 		{
 			var db = Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f;
-			_mixer.SetFloat(parameter, db);
+			_mixer.SetFloat(type.ToString(), db);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace ProjectPang
 {
@@ -18,6 +19,14 @@ namespace ProjectPang
 		public static UIManager UI => _instance._ui;
 		public static GameManager Game => _instance._game;
 
+		[Header("UI Settings")] 
+		[SerializeField] private Transform _uiParent;
+
+		[Header("Audio Settings")] 
+		[SerializeField] private AudioMixer _mixer;
+		[SerializeField] private AudioSource _bgmSource;
+		[SerializeField] private AudioSource _sfxSource;
+
 		private void Awake()
 		{
 			if (_instance != null && _instance != this)
@@ -28,15 +37,12 @@ namespace ProjectPang
 
 			_instance = this;
 			DontDestroyOnLoad(gameObject);
-		}
 
-		// Init managers
-		private void Start()
-		{
+			// Init managers
 			Data.Initailize();
-			//Sound.Initialize();
+			Sound.Initialize(_mixer, _bgmSource, _sfxSource);
 			Custom.Initialize();
-			UI.Initialize(transform);
+			UI.Initialize(_uiParent);
 			Game.Initailize();
 		}
 	}

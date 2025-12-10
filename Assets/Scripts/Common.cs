@@ -16,9 +16,11 @@ namespace ProjectPang
 
 	public enum EUI
 	{
-		Title,
-		Gameplay,
-		Max
+		UITitleWindow,
+		UIGameWindow,
+		UIMapSelectPopup,
+		UICustomPopup,
+		UISettingsPopup,
 	}
 
 	public enum ESound
@@ -26,6 +28,13 @@ namespace ProjectPang
 		ButtonClick,
 		GameOver,
 		Max
+	}
+
+	public enum EAudioMixerType
+	{
+		Master,
+		BGM,
+		SFX
 	}
 
 	public struct SymbolCustomData

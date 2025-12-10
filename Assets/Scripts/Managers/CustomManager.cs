@@ -9,14 +9,14 @@ namespace ProjectPang
 	{
 		public Dictionary<string, GameData> CustomData = new Dictionary<string, GameData>();
 
-		private readonly string _persistentFolderPath =
-			Path.Combine(Application.persistentDataPath, "GameData");
-
-		private readonly string _streamingFolderPath =
-			Path.Combine(Application.streamingAssetsPath, "GameData");
+		private string _persistentFolderPath;
+		private string _streamingFolderPath;
 
 		public void Initialize()
 		{
+			_persistentFolderPath = Path.Combine(Application.persistentDataPath, "GameData");
+			_streamingFolderPath = Path.Combine(Application.streamingAssetsPath, "GameData");
+
 			// persistent 폴더 없으면 생성
 			if (!Directory.Exists(_persistentFolderPath))
 			{

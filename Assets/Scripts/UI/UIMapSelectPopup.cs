@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ProjectPang
 {
-	public class UIMapSelectPopup : UIBase
+	public class UIMapSelectPopup : MonoBehaviour
 	{
 	}
 }
