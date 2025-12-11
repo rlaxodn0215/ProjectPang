@@ -27,18 +27,22 @@ namespace ProjectPang
 
 		private void OnStartButton()
 		{
+			_mapSelectPopup.gameObject.SetActive(true);
 		}
 
 		private void OnCustomButton()
 		{
+			_customPopup.gameObject.SetActive(true);
 		}
 
 		private void OnSettingButton()
 		{
+			_settingsPopup.gameObject.SetActive(true);
 		}
 
 		private void OnExitButton()
 		{
+			Application.Quit();
 		}
 	}
 }

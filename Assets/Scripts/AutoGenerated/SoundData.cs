@@ -84,6 +84,6 @@ namespace ProjectPang
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();
 		}
-	}
 	#endif
+	}
 }

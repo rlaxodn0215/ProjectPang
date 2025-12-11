@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace ProjectPang
 {
+#if UNITY_EDITOR
 	[CreateAssetMenu(fileName = "GoogleSpreadSheetReader", menuName = "Scriptable Objects/GoogleSpreadSheetReader")]
 	public class GoogleSpreadSheetReader : ScriptableObject
 	{
@@ -195,7 +196,7 @@ namespace ProjectPang
 		}
 	}
 
-#if UNITY_EDITOR
+
 	[CustomEditor(typeof(GoogleSpreadSheetReader))]
 	public class GoogleSpreadSheetEditor : Editor
 	{
@@ -342,5 +343,6 @@ namespace ProjectPang
 			return genericMethod.Invoke(null, parameters); // static 메서드라면 null
 		}
 	}
+
 #endif
 }

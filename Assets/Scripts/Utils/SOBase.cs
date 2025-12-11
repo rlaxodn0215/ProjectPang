@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace ProjectPang
@@ -147,12 +145,12 @@ namespace ProjectPang
 			sb.AppendLine("			AssetDatabase.SaveAssets();");
 			sb.AppendLine("			AssetDatabase.Refresh();");
 			sb.AppendLine("		}");
-			sb.AppendLine("	}");
 			sb.AppendLine("	#endif");
+			sb.AppendLine("	}");
 			sb.AppendLine("}");
 
 			return sb.ToString();
 		}
-	}
 #endif
+	}
 }

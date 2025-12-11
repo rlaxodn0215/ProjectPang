@@ -37,6 +37,15 @@ namespace ProjectPang
 		SFX
 	}
 
+	public enum ELocalizeKey // List의 인덱스와 동일
+	{
+		KawaiiPang,
+		Start,
+		Custom,
+		Settings,
+		Exit,
+	}
+
 	public struct SymbolCustomData
 	{
 		public ESymbol Symbol;
@@ -67,5 +76,12 @@ namespace ProjectPang
 		public bool IsRandomBlock;
 		public int BlockCount;
 		public List<int> ListBlockIndex;
+	}
+
+	[Serializable]
+	public class LocalizationData
+	{
+		public string Language;
+		public List<string> ListText;
 	}
 }

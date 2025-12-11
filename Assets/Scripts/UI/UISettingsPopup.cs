@@ -8,15 +8,15 @@ namespace ProjectPang
 {
 	public class UISettingsPopup : MonoBehaviour
 	{
-		[Header("Language Settings")] 
-		[SerializeField] private TMP_Dropdown _languageDropdown;
-		
-		[Header("Display Settings")] 
-		[SerializeField] private TMP_Dropdown _displayResolutionDropdown;
+		[Header("Language Settings")] [SerializeField]
+		private TMP_Dropdown _languageDropdown;
+
+		[Header("Display Settings")] [SerializeField]
+		private TMP_Dropdown _displayResolutionDropdown;
+
 		[SerializeField] private TMP_Dropdown _windowTypeDropdown;
-		
-		[Header("Audio Settings")] 
-		[SerializeField] private TMP_Dropdown _bgmSelectDropdown;
+
+		[Header("Audio Settings")]
 		[SerializeField] private Slider _masterVolumeSlider;
 		[SerializeField] private TMP_Text _maseterVolumeText;
 		[SerializeField] private Slider _bgmVolumeSlider;
@@ -28,38 +28,35 @@ namespace ProjectPang
 
 		private void Start()
 		{
+			InitLanguage();
 			InitWindowType();
 			InitResolutions();
 			InitVolumeSliders();
 		}
 
-		private void InitWindowType()
+		private void InitLanguage()
 		{
-			_windowTypeDropdown.ClearOptions();
+			_languageDropdown.ClearOptions();
 
-			var modes = new List<string>()
-			{
-				"Fullscreen",
-				"Fullscreen Window",
-				"Windowed"
-			};
+			var languages = Managers.Localization.GetLanguageList();
+			_languageDropdown.AddOptions(languages);
 
-			_windowTypeDropdown.AddOptions(modes);
+			// 중복 방지
+			_languageDropdown.onValueChanged.RemoveListener(OnLanguageChanged);
 
-			// 현재 모드에 맞게 기본값 설정
-			var index = Screen.fullScreenMode switch
-			{
-				FullScreenMode.ExclusiveFullScreen => 0,
-				FullScreenMode.FullScreenWindow => 1,
-				FullScreenMode.Windowed => 2,
-				_ => 0
-			};
+			// 기본 언어 설정
+			_languageDropdown.value = 0;
+			_languageDropdown.RefreshShownValue();
 
-			_windowTypeDropdown.value = index;
-			_windowTypeDropdown.RefreshShownValue();
+			OnLanguageChanged(0); // 기본 언어 적용
 
-			// 드롭다운 변경 이벤트 등록
-			_windowTypeDropdown.onValueChanged.AddListener(OnWindowModeChanged);
+			_languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
+		}
+
+		private void OnLanguageChanged(int index)
+		{
+			var selectedLang = _languageDropdown.options[index].text;
+			Managers.Localization.ChangeLanguage(selectedLang);
 		}
 
 		private void InitResolutions()
@@ -95,18 +92,33 @@ namespace ProjectPang
 			_displayResolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
 		}
 
-		private void OnWindowModeChanged(int index)
+		private void InitWindowType()
 		{
-			Screen.fullScreenMode = index switch
+			_windowTypeDropdown.ClearOptions();
+
+			var modes = new List<string>()
 			{
-				0 => // Fullscreen
-					FullScreenMode.ExclusiveFullScreen,
-				1 => // Fullscreen Window
-					FullScreenMode.FullScreenWindow,
-				2 => // Windowed
-					FullScreenMode.Windowed,
-				_ => Screen.fullScreenMode
+				"Fullscreen",
+				"Fullscreen Window",
+				"Windowed"
 			};
+
+			_windowTypeDropdown.AddOptions(modes);
+
+			// 현재 모드에 맞게 기본값 설정
+			var index = Screen.fullScreenMode switch
+			{
+				FullScreenMode.ExclusiveFullScreen => 0,
+				FullScreenMode.FullScreenWindow => 1,
+				FullScreenMode.Windowed => 2,
+				_ => 0
+			};
+
+			_windowTypeDropdown.value = index;
+			_windowTypeDropdown.RefreshShownValue();
+
+			// 드롭다운 변경 이벤트 등록
+			_windowTypeDropdown.onValueChanged.AddListener(OnWindowModeChanged);
 		}
 
 		private void OnResolutionChanged(int index)
@@ -125,6 +137,20 @@ namespace ProjectPang
 				Screen.fullScreenMode,
 				refreshRateRatio
 			);
+		}
+
+		private void OnWindowModeChanged(int index)
+		{
+			Screen.fullScreenMode = index switch
+			{
+				0 => // Fullscreen
+					FullScreenMode.ExclusiveFullScreen,
+				1 => // Fullscreen Window
+					FullScreenMode.FullScreenWindow,
+				2 => // Windowed
+					FullScreenMode.Windowed,
+				_ => Screen.fullScreenMode
+			};
 		}
 
 		private void InitVolumeSliders()

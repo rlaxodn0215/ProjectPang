@@ -12,12 +12,14 @@ namespace ProjectPang
 		private CustomManager _custom = new CustomManager();
 		private UIManager _ui = new UIManager();
 		private GameManager _game = new GameManager();
+		private LocalizationManager _localization = new LocalizationManager();
 
 		public static DataManager Data => _instance._data;
 		public static SoundManager Sound => _instance._sound;
 		public static CustomManager Custom => _instance._custom;
 		public static UIManager UI => _instance._ui;
 		public static GameManager Game => _instance._game;
+		public static LocalizationManager Localization => _instance._localization;
 
 		[Header("UI Settings")] 
 		[SerializeField] private Transform _uiParent;
@@ -44,6 +46,7 @@ namespace ProjectPang
 			Custom.Initialize();
 			UI.Initialize(_uiParent);
 			Game.Initailize();
+			Localization.Initailize();
 		}
 	}
 }
