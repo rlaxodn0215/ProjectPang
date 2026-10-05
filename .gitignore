@@ -37,6 +37,9 @@
 # Visual Studio cache directory
 .vs/
 
+# Ignore GSTU Info
+[Aa]ssets/03_SideAssets/Google Sheets to Unity/Resources/GSTU_Config.asset
+
 # Gradle cache directory
 .gradle/
 
